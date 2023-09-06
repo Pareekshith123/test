@@ -1,0 +1,24 @@
+/* In your CSS file */
+#map {
+    width: 100%; /* Set the width to 100% of the parent container */
+    height: 600px; /* Set a fixed or appropriate height for your map */
+    position:relative; 
+    display: flex;/* Ensure it has a position set */
+    border: 1px solid #000; /* Add a border for visibility, you can remove this in production */
+  }
+  /* Add this CSS to your component's CSS file, e.g., karnataka-map-app.component.css */
+
+/* Style for the district tooltips */
+.district-tooltip {
+  background-color: rgba(255, 255, 255, 0.8); /* Background color with transparency */
+  border: 1px solid #ccc; /* Border */
+  padding: 6px 12px; /* Padding */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 14px; /* Font size */
+  font-weight: bold; /* Font weight */
+  text-align: center; /* Text alignment */
+  white-space: nowrap; /* Prevent line breaks */
+  max-height: 100px;
+  max-width: 100px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow */
+}

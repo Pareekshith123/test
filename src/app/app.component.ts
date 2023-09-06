@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
     console.log(dataPoints);
 
     this.chartOptions = {
-      chart: { type: 'bar', style: { fontFamily: 'Rubik' } },
+      chart: { type: 'container', style: { fontFamily: 'Rubik' } },
       title: { text: 'Project Milestone Data' },
       xAxis: { type: 'category', title: { text: 'Department' } },
       yAxis: { labels: { format: '{value} Days' }, title: { text: 'Duration in days ' } },
@@ -106,7 +106,7 @@ export class AppComponent implements OnInit {
       },
       series: [
         {
-          type: 'column',
+          type: 'bar',
           stacking: 'normal',
           colors: [
             '#8085e9',
