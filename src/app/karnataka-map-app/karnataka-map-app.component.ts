@@ -11,7 +11,7 @@ export class KarnatakaMapAppComponent implements OnInit{
 
   ngOnInit() {
     // Initialize the map
-    this.map = L.map('map').setView([12.9716, 77.5946], 8); // Centered around Bangalore
+    this.map = L.map('map').setView([17.2602, 74.1461], 6); // Centered around Bangalore
 
     // Add a tile layer (you can use other map providers)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -25,7 +25,7 @@ export class KarnatakaMapAppComponent implements OnInit{
         L.geoJSON(geojson, {
           style: {
             color: 'green',      // Change the color to green
-            weight: 2,           // Boundary line weight
+            weight: 1.5,           // Boundary line weight
             opacity: 1,          // Boundary line opacity
             fillOpacity: 0.09    // Fill opacity for the green area
           },
@@ -36,7 +36,8 @@ export class KarnatakaMapAppComponent implements OnInit{
                 permanent: false,
                 direction: 'center',
                 className: 'district-tooltip'
-              }).setContent(feature.properties.district);
+              }).setContent(feature.properties.district+
+                `<br /> 5`);
           
               layer.bindTooltip(tooltip);
             }
