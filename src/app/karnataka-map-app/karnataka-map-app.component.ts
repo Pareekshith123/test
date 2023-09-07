@@ -6,43 +6,57 @@ import * as L from 'leaflet';
   templateUrl: './karnataka-map-app.component.html',
   styleUrls: ['./karnataka-map-app.component.css']
 })
-export class KarnatakaMapAppComponent implements OnInit{
+export class KarnatakaMapAppComponent implements OnInit {
   map: any;
 
   ngOnInit() {
     // Initialize the map
-    this.map = L.map('map').setView([17.2602, 74.1461], 6); // Centered around Bangalore
+    this.map = L.map('map').setView([12.9716, 77.5946], 8); // Centered around Bangalore
 
-    // Add a tile layer (you can use other map providers)
+    // Add a grayscale tile layer
+    // L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
+    //   attribution: 'Map tiles by <a href="https://stamen.com">Stamen Design</a>, ' +
+    //     'under <a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. ' +
+    //     'Data by <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, ' +
+    //     'under <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
+    // }).addTo(this.map);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
-    // Load Karnataka GeoJSON data and add it to the map with green color
+    // Load Karnataka GeoJSON data and add it to the map with different colors for each district
     fetch('assets/karnataka.json')
       .then((response) => response.json())
       .then((geojson) => {
-        L.geoJSON(geojson, {
-          style: {
-            color: 'green',      // Change the color to green
-            weight: 1.5,           // Boundary line weight
-            opacity: 1,          // Boundary line opacity
-            fillOpacity: 0.09    // Fill opacity for the green area
+        L.geoJSON(geojson as any, { // Use 'as any' to suppress type errors
+          style: function (feature) {
+            const colors: { [key: string]: string } = {
+              'Shivamogga': 'yellow',
+              'Mysuru': '#E41B17',
+               "Bidar":"#52D017",
+               "Kalaburagi":"black",
+               "Belagavi":"#E41B17",
+               "Hassan":"blue",
+               "Bagalkote":"#0041C2"
+
+            
+            };
+            const district = feature?.properties?.district;
+
+            const color = colors[district] || 'grey';
+
+            return {
+              color: color,
+              weight: 1.5,
+              opacity: 1,
+              fillOpacity: 0.5
+            };
           },
           onEachFeature: function (feature, layer) {
             if (feature.properties && feature.properties.district) {
-              // Create a tooltip and bind it to the layer
-              const tooltip = L.tooltip({
-                permanent: false,
-                direction: 'center',
-                className: 'district-tooltip'
-              }).setContent(feature.properties.district+
-                `<br /> 5`);
-          
-              layer.bindTooltip(tooltip);
+              layer.bindTooltip(`District:${feature.properties.district}<br/>projects:6`, { permanent: false, direction: 'center', className: 'district-tooltip' });
             }
           }
-          
         }).addTo(this.map);
       });
   }
