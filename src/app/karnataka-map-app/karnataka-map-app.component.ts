@@ -11,7 +11,7 @@ export class KarnatakaMapAppComponent implements OnInit {
 
   ngOnInit() {
     // Initialize the map
-    this.map = L.map('map').setView([12.9716, 77.5946], 8); // Centered around Bangalore
+    this.map = L.map('map').setView([18.9716, 77.5946], 8); // Centered around Bangalore
 
     // Add a grayscale tile layer
     // L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
